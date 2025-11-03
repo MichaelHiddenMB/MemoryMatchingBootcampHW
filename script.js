@@ -21,9 +21,24 @@ let lockBoard = false;
     Use the createCard() function to initialize each cardElement and add it to the gameBoard.
 
 */
+
+
 function initGame() {
     // Write your code here
-
+    document.getElementById('game-board').innerHTML = ''
+    cards.length=0
+    shuffleArray(symbols)
+    shuffleArray(cards)
+    let x=0;
+    for (let i=0; i < 2; i++){
+    while (x<symbols.length){
+        createCard(symbols[x], x)
+        console.log(x)
+        x++
+    }
+    x=0;
+}
+console.log(cards)
     document.getElementById('restart-btn').addEventListener('click', initGame);
 }
 
@@ -32,8 +47,15 @@ function initGame() {
     within the element itself, since we'll need it for later and there's no easy way to get it from the arrays.
     Also make sure to add the event listener with the 'flipCard' function
 */
-function createCard(symbol) {
+function createCard(symbol, x) {
     // Write your code here
+    cards.push(symbol)
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.addEventListener('click', flipCard(card));
+    document.getElementById('game-board').appendChild(card);
+    card.innerHTML+= (cards[x])
+    
 }
 
 /*
@@ -48,6 +70,7 @@ function flipCard(card) {
     // If the board is supposed to be locked or you picked the same card you already picked
     if (lockBoard || card === firstCard) return;
     // Write your code here
+    
 }
 
 /* 
