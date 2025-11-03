@@ -27,8 +27,7 @@ function initGame() {
     // Write your code here
     document.getElementById('game-board').innerHTML = ''
     cards.length=0
-    shuffleArray(symbols)
-    shuffleArray(cards)
+    
     let x=0;
     for (let i=0; i < 2; i++){
     while (x<symbols.length){
@@ -36,10 +35,13 @@ function initGame() {
         console.log(x)
         x++
     }
+    shuffleArray(symbols)
+    shuffleArray(cards)
     x=0;
 }
 console.log(cards)
     document.getElementById('restart-btn').addEventListener('click', initGame);
+    
 }
 
 /*
@@ -52,9 +54,10 @@ function createCard(symbol, x) {
     cards.push(symbol)
     const card = document.createElement('div');
     card.classList.add('card');
-    card.addEventListener('click', flipCard(card));
+    card.addEventListener('click', () => flipCard(card, x));
     document.getElementById('game-board').appendChild(card);
-    card.innerHTML+= (cards[x])
+    card.dataset.term = cards[x]
+    console.log(card.dataset.term)
     
 }
 
@@ -66,10 +69,13 @@ function createCard(symbol, x) {
     If it's the second, then set the secondCard variable to it. Also, if that's the second card, then you 
     want to check for a match using the checkForMatch() function. 
 */
-function flipCard(card) {
+function flipCard(card, x) {
     // If the board is supposed to be locked or you picked the same card you already picked
     if (lockBoard || card === firstCard) return;
     // Write your code here
+    console.log('clicked')
+   card.innerHTML+= (card.dataset.term)
+    console.log(x)
     
 }
 
