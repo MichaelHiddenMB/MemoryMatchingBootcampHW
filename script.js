@@ -14,6 +14,7 @@ let firstCard = null, secondCard = null;
 // You will need to lock the board to stop users from choosing cards when they choose two wrong cards
 // (Don't have to worry about this too much)
 let lockBoard = false;
+let matchnum = 0;
 
 /* 
     You must initialize the game board. You have been given a shuffleArray() function.
@@ -26,6 +27,7 @@ let lockBoard = false;
 function initGame() {
     // Write your code here
     document.getElementById('game-board').innerHTML = ''
+    document.getElementById('heading').innerHTML = 'Memory Card Matching Game'
     cards.length=0
     
     let x=0;
@@ -74,8 +76,22 @@ function flipCard(card, x) {
     if (lockBoard || card === firstCard) return;
     // Write your code here
     console.log('clicked')
-   card.innerHTML+= (card.dataset.term)
+    card.innerHTML+= (card.dataset.term)
     console.log(x)
+    if(firstCard==null) {
+        firstCard=card
+        firstCard.classList.add('flipped');
+
+    }
+    else if(secondCard==null){
+        secondCard=card
+        secondCard.classList.add('flipped')
+        checkForMatch();
+
+    }
+        
+    
+
     
 }
 
@@ -86,6 +102,20 @@ function flipCard(card, x) {
 */
 function checkForMatch() {
     // Write your code here
+    if(firstCard.dataset.term===secondCard.dataset.term){
+        console.log('match found')
+        matchnum++
+        console.log("matchnum is" + matchnum)
+        disableCards();
+        resetBoard();
+        if (matchnum==8){
+            youWin();
+        }
+
+    }
+    else{
+        unflipCards();
+    }
 }
 
 /* 
@@ -95,6 +125,16 @@ function checkForMatch() {
 */
 function disableCards() {
     // Write your code here
+    firstCard.classList.add('matched')
+    secondCard.classList.add('matched')
+
+}
+function youWin() {
+
+    
+        let win = document.getElementById('heading')
+        win.innerHTML= "YOU WIN 🎉"
+   
 }
  
 /* ---------------------  Everything under has already been done for you -------------------------- */
